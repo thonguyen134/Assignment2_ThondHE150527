@@ -14,7 +14,8 @@
     <body>
         <form action="login" method="POST">
         Username:<input type="text" name="user"><br/>
-        Password:<input type="text" name="pass"><br/>
+        Password:<input type="text" name="pass"><br/>   
+        sâ
         <input type="submit" value="Login">
         </form>
     </body>
