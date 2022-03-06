@@ -12,8 +12,27 @@ package model;
 public class Account {
     private String username;
     private String password;
-    private String displayName;
+    private String displayname;
+    private int eid;
 
+    public Account() {
+    }
+
+    public Account(String username, String password, String displayname) {
+        this.username = username;
+        this.password = password;
+        this.displayname = displayname;
+    }
+    
+    public String getDisplayname() {
+        return displayname;
+    }
+
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
+    }
+    
+    
     public String getUsername() {
         return username;
     }
@@ -30,12 +49,13 @@ public class Account {
         this.password = password;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public int getEid() {
+        return eid;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setEid(int pid) {
+        this.eid = pid;
     }
+  
     
 }
