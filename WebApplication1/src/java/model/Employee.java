@@ -6,22 +6,27 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
  * @author tkoko
  */
 public class Employee {
+
     private int id;
     private String lastname;
     private String firstname;
     private boolean gender;
     private Date dob;
+    private Date hiredate;
+    private float salary;
     private String address;
     private String phone;
     private String mail;
+    private ArrayList<Timekeeping> timekeeping = new ArrayList<>();
 
-    public Employee( String lastname, String firstname, boolean gender, Date dob, String address, String phone, String mail) {
+    public Employee(String lastname, String firstname, boolean gender, Date dob, String address, String phone, String mail) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.gender = gender;
@@ -29,6 +34,30 @@ public class Employee {
         this.address = address;
         this.phone = phone;
         this.mail = mail;
+    }
+
+    public Date getHiredate() {
+        return hiredate;
+    }
+
+    public ArrayList<Timekeeping> getTimekeeping() {
+        return timekeeping;
+    }
+
+    public void setTimekeeping(ArrayList<Timekeeping> timekeeping) {
+        this.timekeeping = timekeeping;
+    }
+
+    public void setHiredate(Date hiredate) {
+        this.hiredate = hiredate;
+    }
+
+    public float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(float salary) {
+        this.salary = salary;
     }
 
     public Employee() {
@@ -97,5 +126,5 @@ public class Employee {
     public void setMail(String mail) {
         this.mail = mail;
     }
-    
+
 }
