@@ -14,7 +14,8 @@
     </head>
     <body>
         <c:forEach items=""></c:forEach>
-            <form action="">
+        <!--search following year month-->
+        <form action="timekeeping" method="GET">
                 <!--option year -->
                 Year:<select name="year">
                 <c:forEach items="${requestScope.listyear}" var="year" >
@@ -33,7 +34,10 @@
             </select> 
             <input type="submit" value="Search">
         </form>
-        <table border="1px">
+            <!--save check box-->
+            <form action="timekeeping" method="POST">
+                <input type="submit" value="save">
+                <table border="1px">
             <tr>
                 <td></td>
                 <c:forEach items="${requestScope.employees}" var="e">
@@ -44,18 +48,20 @@
                     </td>
                 </c:forEach>
             </tr>
-            <c:forTokens items="1-3-2022,2-3-2022,3-3-2002" delims="," var="date">
-                <tr><td><c:out value="${date}"/></td> 
+        <c:forEach items="${requestScope.dayOfMonth}" var="d" >
+            <tr><td>${d}</td> 
                     <c:forEach items="${requestScope.employees}" var="e">
-                        <td><input type="checkbox" name="date${e.id}" value="${date}"></td>
+                        <td><input type="checkbox" name="${e.id}" value="${d}"></td>
                 </c:forEach>
                 </tr>
-            </c:forTokens>
-            
+        </c:forEach>
         </table>
+                <br/>
+            </form>
+        
 
         
-        <br/>
+        
 
     </body>
 </html>

@@ -5,8 +5,10 @@
  */
 package controller.employees;
 
+import Algorithm.Date;
 import controller.BaseAuthController;
 import dal.EmployeeDBContext;
+import dal.TimekeepingDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -38,13 +40,26 @@ public class TimekeepingEmployeeController extends BaseAuthController {
             throws ServletException, IOException {
         EmployeeDBContext db = new EmployeeDBContext();
         ArrayList<Employee> employees = db.getEmployees();
-        //get year now 
-        int year = LocalDate.now().getYear();
-        int month = LocalDate.now().getMonthValue();
+        //get year month
+        String raw_year = request.getParameter("year");
+        String raw_month = request.getParameter("month");
+        int year,month;
+        int yearNow=LocalDate.now().getYear();
+        int monthNow=LocalDate.now().getMonthValue();
+        if(raw_year == null && raw_month == null){
+            year = yearNow;
+            month = monthNow;
+        }else{
+        year = Integer.parseInt(raw_year);
+        month = Integer.parseInt(raw_month);
+        }
         ArrayList<Integer> listYear = new ArrayList();
-        for(int i = 2019 ;i<=year;i++){
+        for(int i = 2019 ;i<=yearNow;i++){
             listYear.add(i);
         }
+        Date d = new Date();
+        ArrayList<String> dayOfMonth = d.getDayOfMonth(year, month);
+        request.setAttribute("dayOfMonth", dayOfMonth);
         request.setAttribute("year", year);
         request.setAttribute("month", month);
         request.setAttribute("listyear", listYear);
@@ -63,7 +78,15 @@ public class TimekeepingEmployeeController extends BaseAuthController {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        EmployeeDBContext edb = new EmployeeDBContext();
+        ArrayList<Employee> employees = edb.getEmployees();
+        for (Employee e : employees) {
+            String[] listDate = request.getParameterValues(""+e.getId());
+            //add vao database bang ngoai cung
+            TimekeepingDBContext tdb = new TimekeepingDBContext();
+            tdb.insertTimekeeping(listDate);
+            //add t_id voi e_id vao cai bang noi giua
+        }
     }
 
     /**
