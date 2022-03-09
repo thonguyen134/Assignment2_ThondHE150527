@@ -22,30 +22,36 @@ public class EmployeeDBContext extends DBContext{
     
     public void insertEmployee(Employee employee){
         try {
-            String sql = "INSERT INTO [Employees]\n" +
-                    "           ([e_first_name]\n" +
-                    "           ,[e_last_name]\n" +
-                    "           ,[e_gender]\n" +
-                    "           ,[e_date_of_birth]\n" +
-                    "           ,[e_address]\n" +
-                    "           ,[e_phone]\n" +
-                    "           ,[e_mail])\n" +
-                    "     VALUES\n" +
-                    "           (?" +
-                    "           ,?" +
-                    "           ,?" +
-                    "           ,?" +
-                    "           ,?" +
-                    "           ,?" +
-                    "           ,?)";
+            String sql = "INSERT INTO [dbo].[Employees]\n" +
+                        "           ([e_first_name]\n" +
+                        "           ,[e_last_name]\n" +
+                        "           ,[e_gender]\n" +
+                        "           ,[e_date_of_birth]\n" +
+                        "           ,[e_hire_date]\n" +
+                        "           ,[e_salary]\n" +
+                        "           ,[e_address]\n" +
+                        "           ,[e_phone]\n" +
+                        "           ,[e_mail])\n" +
+                        "     VALUES\n" +
+                        "           (?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?)";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, employee.getFirstname());
             stm.setString(2, employee.getLastname());
             stm.setBoolean(3, employee.isGender());
             stm.setDate(4, employee.getDob());
-            stm.setString(5, employee.getAddress());
-            stm.setString(6, employee.getPhone());
-            stm.setString(7, employee.getMail());
+            stm.setDate(5, employee.getHiredate());
+            stm.setFloat(6, employee.getSalary());
+            stm.setString(7, employee.getAddress());
+            stm.setString(8, employee.getPhone());
+            stm.setString(9, employee.getMail());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);

@@ -22,6 +22,8 @@
             Male<input type="radio" name="gender" value="male">
             Female<input type="radio" name="gender" value="female"><br/>
             Dob:<input type="date" name="dob"><br/>
+            HireDate:<input type="date" name="hdate"><br/>
+            Salary:<input type="text" name="salary"><br/>
             Address:<input type="text" name="address"><br/>
             Phone:<input type="text" name="phone"><br/>
             Mail:<input type="text" name="mail"><br/>

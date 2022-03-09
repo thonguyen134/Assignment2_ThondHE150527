@@ -26,7 +26,7 @@ public class InsertEmployeeController extends BaseAuthController {
 
 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -57,6 +57,8 @@ public class InsertEmployeeController extends BaseAuthController {
         String raw_firstname = request.getParameter("firstname");
         String raw_gender = request.getParameter("gender");
         String raw_dob = request.getParameter("dob");
+        String raw_hdate = request.getParameter("hdate");
+        String raw_salary = request.getParameter("salary");
         String raw_address = request.getParameter("address");
         String raw_phone = request.getParameter("phone");
         String raw_mail = request.getParameter("mail");
@@ -71,16 +73,16 @@ public class InsertEmployeeController extends BaseAuthController {
         String firstname = raw_firstname;
         boolean gender = raw_gender.equals("male");
         Date dob = Date.valueOf(raw_dob); 
+        Date hdate = Date.valueOf(raw_hdate); 
+        float salary = Float.parseFloat(raw_salary);
         String address = raw_address;
         String phone = raw_phone;
         String mail = raw_mail;
-        Employee employee = new Employee(lastname, firstname, gender, dob, address, phone, mail);
-        
+        Employee employee = new Employee(lastname, firstname, gender, dob, hdate, salary, address, phone, mail);
         String user = raw_user;
         String pass = raw_pass;
         String displayname = raw_displayname;
         Account account = new  Account(user, pass, displayname);
-        
         EmployeeDBContext edb = new EmployeeDBContext();
         AccountDBContext  adb = new AccountDBContext();
         edb.insertEmployee(employee);

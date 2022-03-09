@@ -42,6 +42,7 @@
             <table border="1px">
                 <tr>
                     <td></td>
+                    <!--display employees-->
                     <c:forEach items="${requestScope.employees}" var="e">
                         <td>
                             ${e.id}:
@@ -50,10 +51,16 @@
                         </td>
                     </c:forEach>
                 </tr>
+                <!--display day of month-->
                 <c:forEach items="${requestScope.dayOfMonth}" var="d" >
                     <tr><td>${d}</td> 
                         <c:forEach items="${requestScope.employees}" var="e">
+                            <!--hidden if employeee.hiredate<day-->
+                            <!--and checked if had in database-->
                             <td><input 
+                                    <c:if test="${d < e.hiredate}">
+                                        <c:out value="hidden=\"hidden\""/>
+                                    </c:if>
                                     <c:forEach items="${e.timekeeping}" var="t">
                                         <c:if test="${t.day == d}">
                                         <c:out value="checked=\"checked\""/>

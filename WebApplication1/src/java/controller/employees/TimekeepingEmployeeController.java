@@ -41,8 +41,6 @@ public class TimekeepingEmployeeController extends BaseAuthController {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
             //get year month
             String raw_year = request.getParameter("year");
             String raw_month = request.getParameter("month");
@@ -95,9 +93,8 @@ public class TimekeepingEmployeeController extends BaseAuthController {
             TimekeepingDBContext tdb = new TimekeepingDBContext();
             //xoa di
             tdb.deleteTimekeeping(year,month,e.getId());
-            //update lai
+            //insert lai
             tdb.insertTimekeeping(listDate,e.getId());
-            //add t_id voi e_id vao cai bang noi giua
         }
         response.sendRedirect("timekeeping");
     }

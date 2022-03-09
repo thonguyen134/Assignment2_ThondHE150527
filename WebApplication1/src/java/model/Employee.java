@@ -26,15 +26,19 @@ public class Employee {
     private String mail;
     private ArrayList<Timekeeping> timekeeping = new ArrayList<>();
 
-    public Employee(String lastname, String firstname, boolean gender, Date dob, String address, String phone, String mail) {
+    public Employee( String lastname, String firstname, boolean gender, Date dob, Date hiredate, float salary, String address, String phone, String mail) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.gender = gender;
         this.dob = dob;
+        this.hiredate = hiredate;
+        this.salary = salary;
         this.address = address;
         this.phone = phone;
         this.mail = mail;
     }
+
+    
 
     public Date getHiredate() {
         return hiredate;
