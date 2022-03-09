@@ -18,6 +18,8 @@ import model.Employee;
  * @author tkoko
  */
 public class EmployeeDBContext extends DBContext{
+    
+    
     public void insertEmployee(Employee employee){
         try {
             String sql = "INSERT INTO [Employees]\n" +
@@ -48,6 +50,36 @@ public class EmployeeDBContext extends DBContext{
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public ArrayList<Employee> getEmployees(int year,int month){
+        try {
+            TimekeepingDBContext db = new TimekeepingDBContext();
+            String sql = "select e_id,e_first_name,e_last_name,e_gender,e_date_of_birth,"
+                    + "e_hire_date,e_salary,e_address,e_phone,e_mail\n" +
+                    "from Employees";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            ArrayList<Employee> employees = new ArrayList<>();
+            while(rs.next()){
+                Employee e = new Employee();
+                e.setId(rs.getInt("e_id"));
+                e.setFirstname(rs.getString("e_first_name"));
+                e.setLastname(rs.getString("e_last_name"));
+                e.setGender(rs.getBoolean("e_gender"));
+                e.setDob(rs.getDate("e_date_of_birth"));
+                e.setHiredate(rs.getDate("e_hire_date"));
+                e.setSalary(rs.getFloat("e_salary"));
+                e.setAddress(rs.getString("e_address"));
+                e.setAddress(rs.getString("e_phone"));
+                e.setAddress(rs.getString("e_mail"));
+                e.setTimekeeping(db.getTimekeeping(year, month, rs.getInt("e_id")));
+                employees.add(e);
+            }
+            return employees;
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     return null;   
     }
     public ArrayList<Employee> getEmployees(){
         try {

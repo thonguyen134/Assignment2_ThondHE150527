@@ -14,8 +14,8 @@
     </head>
     <body>
         <c:forEach items=""></c:forEach>
-        <!--search following year month-->
-        <form action="timekeeping" method="GET">
+            <!--search following year month-->
+            <form action="timekeeping" method="GET">
                 <!--option year -->
                 Year:<select name="year">
                 <c:forEach items="${requestScope.listyear}" var="year" >
@@ -34,34 +34,42 @@
             </select> 
             <input type="submit" value="Search">
         </form>
-            <!--save check box-->
-            <form action="timekeeping" method="POST">
-                <input type="submit" value="save">
-                <table border="1px">
-            <tr>
-                <td></td>
-                <c:forEach items="${requestScope.employees}" var="e">
-                    <td>
-                    ${e.id}:
-                    ${e.firstname}
-                    ${e.lastname}
-                    </td>
-                </c:forEach>
-            </tr>
-        <c:forEach items="${requestScope.dayOfMonth}" var="d" >
-            <tr><td>${d}</td> 
+        <!--save check box-->
+        <form action="timekeeping" method="POST">
+            <input hidden="" type="text" value="${requestScope.year}" name="year">
+        <input hidden="" type="text" value="${requestScope.month}" name="month" >
+            <input type="submit" value="save">
+            <table border="1px">
+                <tr>
+                    <td></td>
                     <c:forEach items="${requestScope.employees}" var="e">
-                        <td><input type="checkbox" name="${e.id}" value="${d}"></td>
-                </c:forEach>
+                        <td>
+                            ${e.id}:
+                            ${e.firstname}
+                            ${e.lastname}
+                        </td>
+                    </c:forEach>
                 </tr>
-        </c:forEach>
-        </table>
-                <br/>
-            </form>
-        
+                <c:forEach items="${requestScope.dayOfMonth}" var="d" >
+                    <tr><td>${d}</td> 
+                        <c:forEach items="${requestScope.employees}" var="e">
+                            <td><input 
+                                    <c:forEach items="${e.timekeeping}" var="t">
+                                        <c:if test="${t.day == d}">
+                                        <c:out value="checked=\"checked\""/>
+                                        </c:if>
+                                    </c:forEach>
+                                    type="checkbox" name="${e.id}" value="${d}"></td>
+                            </c:forEach>
+                    </tr>
+                </c:forEach>
+            </table>
+            <br/>
+        </form>
 
-        
-        
+
+
+
 
     </body>
 </html>

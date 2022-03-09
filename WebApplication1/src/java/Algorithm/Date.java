@@ -5,6 +5,8 @@
  */
 package Algorithm;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Date {
 
-    public ArrayList<String> getDayOfMonth(int year, int month) {
+    public ArrayList<String> getDayOfMonth(int year, int month) throws ParseException {
         int lastDay=-1;
         switch (month) {
             case 1:
@@ -59,7 +61,10 @@ public class Date {
         }
         ArrayList result = new ArrayList();
         for(int i = 1;i<=lastDay;i++){
-            String date = year+"-"+month+"-"+i;
+            String raw_date = year+"-"+month+"-"+i;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date d = sdf.parse(raw_date);
+            String date = sdf.format(d);
             result.add(date);
         }
         return result;
