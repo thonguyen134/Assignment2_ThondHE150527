@@ -54,7 +54,7 @@ public class loginController extends HttpServlet {
         String pass = request.getParameter("pass");
      
         //valid login okla
-        if(valid.checkString(user) && valid.checkString(pass)){
+        if(valid.checkStringLogin(user) && valid.checkStringLogin(pass)){
             AccountDBContext db = new AccountDBContext();
             Account account = db.getAccount(user, pass);
             if(account!=null){

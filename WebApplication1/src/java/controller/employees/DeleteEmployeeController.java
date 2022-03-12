@@ -6,6 +6,8 @@
 package controller.employees;
 
 import controller.BaseAuthController;
+import dal.AccountDBContext;
+import dal.EmployeeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -30,19 +32,13 @@ public class DeleteEmployeeController extends BaseAuthController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteEmployeeController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteEmployeeController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        String raw_id = request.getParameter("id");
+        int id = Integer.parseInt(raw_id);
+        EmployeeDBContext edb = new EmployeeDBContext();
+        AccountDBContext adb = new AccountDBContext();
+        edb.deleteEmployee(id);
+        adb.deleteAccount(id);
+        response.sendRedirect("list");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

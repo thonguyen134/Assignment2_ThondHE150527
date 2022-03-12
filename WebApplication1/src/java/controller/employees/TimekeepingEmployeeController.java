@@ -87,16 +87,21 @@ public class TimekeepingEmployeeController extends BaseAuthController {
         ArrayList<Employee> employees = edb.getEmployees();
         int year = Integer.parseInt(request.getParameter("year"));
         int month = Integer.parseInt(request.getParameter("month"));
+        TimekeepingDBContext tdb = new TimekeepingDBContext();
         for (Employee e : employees) {
             String[] listDate = request.getParameterValues(""+e.getId());
-            //add e_id and t_day to timekeeping_employees
-            TimekeepingDBContext tdb = new TimekeepingDBContext();
+            if(listDate==null){
+                tdb.deleteTimekeeping(year,month,e.getId());
+            }else{
             //xoa di
             tdb.deleteTimekeeping(year,month,e.getId());
             //insert lai
             tdb.insertTimekeeping(listDate,e.getId());
+            
+            }
         }
         response.sendRedirect("timekeeping");
+        
     }
 
     /**

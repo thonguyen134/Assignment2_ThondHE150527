@@ -18,6 +18,13 @@ public class Account {
     public Account() {
     }
 
+    public Account(String username, String password, String displayname, int eid) {
+        this.username = username;
+        this.password = password;
+        this.displayname = displayname;
+        this.eid = eid;
+    }
+
     public Account(String username, String password, String displayname) {
         this.username = username;
         this.password = password;

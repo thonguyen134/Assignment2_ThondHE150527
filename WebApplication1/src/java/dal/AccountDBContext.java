@@ -66,6 +66,26 @@ public class AccountDBContext extends DBContext{
             //close connection
         }
    }
+   public Account getAccountById(int id){
+       try {
+           String sql = "select username,password,displayname,e_id from Account\n" +
+                        "where e_id  = ?";
+           PreparedStatement stm  = connection.prepareStatement(sql);
+           stm.setInt(1, id);
+           ResultSet rs = stm.executeQuery();
+           if(rs.next()){
+             Account a = new Account();
+             a.setUsername(rs.getString("username"));
+             a.setPassword(rs.getString("password"));
+             a.setDisplayname(rs.getString("displayname"));
+             a.setEid(rs.getInt("e_id"));
+             return a;
+           }
+       } catch (SQLException ex) {
+           Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return null;
+   }
    public Account getAccount(String user , String pass){
        try {
            String sql = "SELECT username,password,displayname,e_id FROM Account \n"
@@ -109,5 +129,49 @@ public class AccountDBContext extends DBContext{
         }
         return -1;
     }
-  
+
+    public void updateAccount(Account account) {
+       try {
+           String sql = "UPDATE [Account]\n" +
+                   "   SET [username] = ?\n" +
+                   "      ,[password] = ?\n" +
+                   "      ,[displayname] = ?\n" +
+                   " WHERE e_id = ?";
+           PreparedStatement stm = connection.prepareStatement(sql);
+           stm.setString(1, account.getUsername());
+           stm.setString(2, account.getPassword());
+           stm.setString(3, account.getDisplayname());
+           stm.setInt(4, account.getEid() );
+           stm.executeUpdate();
+       } catch (SQLException ex) {
+           Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
+    public void deleteAccount(int id) {
+        try {
+            String sql = "DELETE FROM [Account]\n" +
+                         "WHERE e_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+                    } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+  public boolean checkAccountExist(String user){
+       try {
+           String sql = "SELECT username,password,displayname,e_id FROM Account \n"
+                   + "WHERE username = ?";
+           PreparedStatement stm  = connection.prepareStatement(sql);
+           stm.setString(1, user);
+           ResultSet rs = stm.executeQuery();
+           if(rs.next()){
+             return true;
+           }
+       } catch (SQLException ex) {
+           Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return false;
+   }
 }

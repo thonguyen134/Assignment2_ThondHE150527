@@ -20,13 +20,15 @@ public class Employee {
     private boolean gender;
     private Date dob;
     private Date hiredate;
-    private float salary;
+    private int salary;
     private String address;
     private String phone;
     private String mail;
+    private Account account;
     private ArrayList<Timekeeping> timekeeping = new ArrayList<>();
 
-    public Employee( String lastname, String firstname, boolean gender, Date dob, Date hiredate, float salary, String address, String phone, String mail) {
+    public Employee(int id, String lastname, String firstname, boolean gender, Date dob, Date hiredate, int salary, String address, String phone, String mail) {
+        this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
         this.gender = gender;
@@ -38,8 +40,27 @@ public class Employee {
         this.mail = mail;
     }
 
-    
+    public Employee( String lastname, String firstname, boolean gender, Date dob, Date hiredate, int salary, String address, String phone, String mail) {
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.gender = gender;
+        this.dob = dob;
+        this.hiredate = hiredate;
+        this.salary = salary;
+        this.address = address;
+        this.phone = phone;
+        this.mail = mail;
+    }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+    
+    
     public Date getHiredate() {
         return hiredate;
     }
@@ -56,11 +77,11 @@ public class Employee {
         this.hiredate = hiredate;
     }
 
-    public float getSalary() {
+    public int getSalary() {
         return salary;
     }
 
-    public void setSalary(float salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
     }
 

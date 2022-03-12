@@ -74,7 +74,7 @@ public class InsertEmployeeController extends BaseAuthController {
         boolean gender = raw_gender.equals("male");
         Date dob = Date.valueOf(raw_dob); 
         Date hdate = Date.valueOf(raw_hdate); 
-        float salary = Float.parseFloat(raw_salary);
+        int salary = Integer.parseInt(raw_salary);
         String address = raw_address;
         String phone = raw_phone;
         String mail = raw_mail;
@@ -87,7 +87,7 @@ public class InsertEmployeeController extends BaseAuthController {
         AccountDBContext  adb = new AccountDBContext();
         edb.insertEmployee(employee);
         adb.insertAccount(account);
-        response.getWriter().println("ok");
+        response.sendRedirect("list");
         
     }
 
