@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class CheckValidate {
     //check  string  [a-zA-Z1-9]
-    public boolean checkStringLogin(String input) {
+    public boolean checkStringAndNumber(String input) {
         if (input == null || input.trim().length() == 0) {
             return false;
         }
@@ -111,5 +111,11 @@ public class CheckValidate {
     public boolean checkDuplicateUser(String user){
         AccountDBContext db = new AccountDBContext();
         return db.checkAccountExist(user);
+    }
+    public boolean checkGender(String gender){
+        if (gender == null || gender.trim().length() == 0) {
+                return false;
+            }
+        return true;
     }
 }
