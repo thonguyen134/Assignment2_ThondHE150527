@@ -59,6 +59,8 @@ public class loginController extends HttpServlet {
             Account account = db.getAccount(user, pass);
             if(account!=null){
             request.getSession().setAttribute("account", account);
+            //chuyen trang theo tk, nhan vien thi ban hang 
+            //admin quan ly thi chuyen sang quan ly products
             response.getWriter().println("Login oke");
             }else{
                response.getWriter().println("sai tk or mat khau roi"); 

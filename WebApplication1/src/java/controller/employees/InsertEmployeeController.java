@@ -156,6 +156,7 @@ public class InsertEmployeeController extends BaseAuthController {
         AccountDBContext adb = new AccountDBContext();
         edb.insertEmployee(employee);
         adb.insertAccount(account);
+        adb.insertGroupAccount(user);
         response.sendRedirect("list");
         }else{
             response.getWriter().println(notice.substring(0, notice.length()-2)+" invalid");

@@ -174,4 +174,32 @@ public class AccountDBContext extends DBContext{
        }
        return false;
    }
+  public void insertGroupAccount(String username){
+       try {
+           String sql = "INSERT INTO [Group_Account]\n" +
+                   "           ([username]\n" +
+                   "           ,[g_id])\n" +
+                   "     VALUES\n" +
+                   "           (?\n" +
+                   "           ,2)";
+           PreparedStatement stm = connection.prepareStatement(sql);
+           stm.setString(1, username);
+           stm.executeUpdate();
+       } catch (SQLException ex) {
+           Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+       }
+  }
+
+    public void deleteGroupAccount(int id) {
+       try {
+           Account account = getAccountById(id);
+           String sql = "DELETE FROM [Group_Account]\n" +
+                   "WHERE username = ?";
+           PreparedStatement stm = connection.prepareStatement(sql);
+           stm.setString(1, account.getUsername());
+           stm.executeUpdate();
+       } catch (SQLException ex) {
+           Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
 }
