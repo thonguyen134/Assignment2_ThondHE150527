@@ -13,7 +13,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <c:forEach items=""></c:forEach>
             <!--search following year month-->
             <form action="timekeeping" method="GET">
                 <!--option year -->
@@ -70,13 +69,18 @@
                             </c:forEach>
                     </tr>
                 </c:forEach>
+                    <!--display salary-->
+                    <tr>
+                        <td>Salary</td>
+                        <c:forEach items="${requestScope.employees}" var="e">
+                            <c:set var="salary" value="${(e.salary/requestScope.dayOfMonth.size()*e.timekeeping.size())}" />
+                            <td><strong>
+            <fmt:formatNumber type="number" maxFractionDigits="3" value="${salary}" />
+                        </strong>đ</td>
+                        </c:forEach>
+                    </tr>
             </table>
             <br/>
         </form>
-
-
-
-
-
     </body>
 </html>

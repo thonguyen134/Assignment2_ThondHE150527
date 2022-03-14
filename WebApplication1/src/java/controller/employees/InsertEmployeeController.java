@@ -107,7 +107,7 @@ public class InsertEmployeeController extends BaseAuthController {
             notice += "hiredate, ";
             valid = false;
         }
-        if (check.checkSalary(raw_salary)) {
+        if (check.checkInteger(raw_salary)) {
             salary = Integer.parseInt(raw_salary);
         } else {
             notice += "salary, ";

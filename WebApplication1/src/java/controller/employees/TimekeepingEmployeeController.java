@@ -7,6 +7,7 @@ package controller.employees;
 
 import Algorithm.Date;
 import controller.BaseAuthController;
+import dal.AccountDBContext;
 import dal.EmployeeDBContext;
 import dal.TimekeepingDBContext;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Employee;
 
 /**
@@ -83,6 +85,15 @@ public class TimekeepingEmployeeController extends BaseAuthController {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        AccountDBContext adb = new AccountDBContext();
+        Account account = (Account)request.getSession().getAttribute("account");
+        //khi nao xong xoa cho nay di
+        if(account == null){
+            response.getWriter().println("access denied!");
+            return;
+        }
+        int g_id = adb.getGroupAccount(account.getUsername());
+        if(g_id==1){
         EmployeeDBContext edb = new EmployeeDBContext();
         ArrayList<Employee> employees = edb.getEmployees();
         int year = Integer.parseInt(request.getParameter("year"));
@@ -97,10 +108,13 @@ public class TimekeepingEmployeeController extends BaseAuthController {
             tdb.deleteTimekeeping(year,month,e.getId());
             //insert lai
             tdb.insertTimekeeping(listDate,e.getId());
-            
             }
         }
         response.sendRedirect("timekeeping");
+        }else{
+        response.getWriter().println("access denied!");
+        }
+        
         
     }
 

@@ -29,7 +29,7 @@ public class TimekeepingDBContext extends DBContext{
         try {
             String sql = "select * from Timekeeping_Employees\n" +
                     "where MONTH(t_day) = ? AND YEAR(t_day)=? \n" +
-                    "AND e_id IN (select e_id from Employees where e_id=?)";
+                    "AND e_id = ? ";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, month);
             stm.setInt(2, year);

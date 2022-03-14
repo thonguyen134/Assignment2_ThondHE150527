@@ -202,4 +202,19 @@ public class AccountDBContext extends DBContext{
            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
+    public int getGroupAccount(String username){
+       try {
+           String sql = "select g_id from Group_Account\n" +
+                   "where username = ?";
+           PreparedStatement stm = connection.prepareStatement(sql);
+           stm.setString(1, username);
+           ResultSet rs = stm.executeQuery();
+           if(rs.next()){
+               return rs.getInt("g_id");
+           }
+                   } catch (SQLException ex) {
+           Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return -1;
+    }
 }

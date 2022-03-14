@@ -24,6 +24,22 @@
         <servlet-name>TimekeepingEmployeeController</servlet-name>
         <servlet-class>controller.employees.TimekeepingEmployeeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertProductController</servlet-name>
+        <servlet-class>controller.products.InsertProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProductController</servlet-name>
+        <servlet-class>controller.products.UpdateProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductController</servlet-name>
+        <servlet-class>controller.products.DeleteProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProductController</servlet-name>
+        <servlet-class>controller.products.SearchProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -47,6 +63,22 @@
     <servlet-mapping>
         <servlet-name>TimekeepingEmployeeController</servlet-name>
         <url-pattern>/employee/timekeeping</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertProductController</servlet-name>
+        <url-pattern>/product/insert</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProductController</servlet-name>
+        <url-pattern>/product/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductController</servlet-name>
+        <url-pattern>/product/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProductController</servlet-name>
+        <url-pattern>/product/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

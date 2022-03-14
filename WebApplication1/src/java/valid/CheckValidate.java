@@ -75,7 +75,7 @@ public class CheckValidate {
             return true;
     }
     //check salary  
-    public boolean checkSalary(String input){
+    public boolean checkInteger(String input){
             if (input == null || input.trim().length() == 0) {
                 return false;
             }
@@ -117,5 +117,43 @@ public class CheckValidate {
                 return false;
             }
         return true;
+    }
+    //phase_motor
+    public boolean checkPhaseMotor(String phaseMotor){
+        if (phaseMotor == null || phaseMotor.trim().length() == 0) {
+                return false;
+            }
+        if(phaseMotor.equals("1")||phaseMotor.equals("3")){
+            return true;
+        }
+        return false;
+    }
+    //kw_motor 1 phase
+    public boolean checkKwMotorOnePhase(String kwMotor){
+        if (kwMotor == null || kwMotor.trim().length() == 0) {
+                return false;
+            }
+        String[] arrayKw = {"0.125","0.15","0.37","0.5","0.75","1.1","1.5","2.5","3","4","5"};
+        for(int i = 0 ;i<arrayKw.length;i++){
+            if(kwMotor.equals(arrayKw[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+     //kw_motor 3 phase
+    public boolean checkKwMotorThreePhase(String kwMotor){
+        if (kwMotor == null || kwMotor.trim().length() == 0) {
+                return false;
+            }
+        String[] arrayKw = {"0.37","0.5","0.75","1.1","1.5","2.2","2.8","3","3.7","4"
+        ,"4.5","5.5","7.5","11","15","17","18.5","22","24","25","28","30"
+        ,"33","37","40","45","55","75","90","100","110","132","160","220"};
+        for(int i = 0 ;i<arrayKw.length;i++){
+            if(kwMotor.equals(arrayKw[i])){
+                return true;
+            }
+        }
+        return false;
     }
 }
