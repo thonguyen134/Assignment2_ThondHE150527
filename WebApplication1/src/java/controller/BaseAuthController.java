@@ -20,17 +20,17 @@ public abstract class BaseAuthController extends HttpServlet {
     private boolean isAuthenticated(HttpServletRequest request)
     {
         Account account = (Account) request.getSession().getAttribute("account");
-//        return true;
+       return true;
         //tam thoi cho cut
-        if(account == null)
-            return false;
-        else
-        {
-            String url = request.getServletPath();
-            AccountDBContext db = new AccountDBContext();
-            int permission = db.getPermission(account.getUsername(), url);
-            return permission >0;
-        }
+//        if(account == null)
+//            return false;
+//        else
+//        {
+//            String url = request.getServletPath();
+//            AccountDBContext db = new AccountDBContext();
+//            int permission = db.getPermission(account.getUsername(), url);
+//            return permission >0;
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

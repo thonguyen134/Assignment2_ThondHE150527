@@ -5,44 +5,22 @@
  */
 package controller.products;
 
+import controller.BaseAuthController;
+import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Product;
+import valid.CheckValidate;
 
 /**
  *
  * @author tkoko
  */
-public class UpdateProductController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateProductController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateProductController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+public class UpdateProductController extends BaseAuthController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -54,9 +32,13 @@ public class UpdateProductController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        ProductDBContext db = new ProductDBContext();
+        Product product = db.getProduct(id);
+        request.setAttribute("product", product);
+        request.getRequestDispatcher("../view/product/update.jsp").forward(request, response);
     }
 
     /**
@@ -68,9 +50,81 @@ public class UpdateProductController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String raw_phase = request.getParameter("phase");
+        String raw_kw = request.getParameter("kw");
+        String raw_speed = request.getParameter("speed");
+        String raw_country = request.getParameter("country");
+        String raw_price = request.getParameter("price");
+        String raw_quantity = request.getParameter("quantity");
+
+        int phase = 0, speed = 0, quantity = 0;
+        float kw = 0, price = 0;
+        String country = null, notice = "";
+        boolean valid = true;
+        //validate
+        CheckValidate check = new CheckValidate();
+        //check phase motor
+        if (check.checkPhaseMotor(raw_phase)) {
+            phase = Integer.parseInt(raw_phase);
+        } else {
+            notice += "phase, ";
+            valid = false;
+        }
+        //check kw 1 phase and 3 phase
+        if (phase == 1 && valid == true) {
+            if (check.checkKwMotorOnePhase(raw_kw)) {
+                kw = Float.parseFloat(raw_kw);
+            } else {
+                notice += "kw, ";
+                valid = false;
+            }
+        }else if(phase ==3 && valid ==true){
+            if (check.checkKwMotorThreePhase(raw_kw)) {
+                kw = Float.parseFloat(raw_kw);
+            } else {
+                notice += "kw, ";
+                valid = false;
+            }
+        }
+        //check speed
+        if (check.checkInteger(raw_speed)) {
+            speed = Integer.parseInt(raw_speed);
+        } else {
+            notice += "speed, ";
+            valid = false;
+        }
+        //check country
+        if (check.checkString(raw_country)) {
+            country = raw_country;
+        } else {
+            notice += "country, ";
+            valid = false;
+        }
+        //check price
+        if (check.checkFloat(raw_price)) {
+            price = Float.parseFloat(raw_price);
+        } else {
+            notice += "price, ";
+            valid = false;
+        }
+        //check quantity
+        if(check.checkInteger(raw_quantity)){
+            quantity = Integer.parseInt(raw_quantity);
+        }else{
+            notice += "quantity, ";
+            valid = false;
+        }
+        if(valid == false){
+            response.getWriter().println(notice.substring(0, notice.length()-2)+" invalid");
+        }else{
+            int id = Integer.parseInt(request.getParameter("id"));
+            Product p = new Product(id,phase, kw, speed, country, price, quantity);
+            ProductDBContext db = new ProductDBContext();
+            db.updateProduct(p);
+            response.getWriter().println("insert successful!");
+        }
     }
 
     /**
