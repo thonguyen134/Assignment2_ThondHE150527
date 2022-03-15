@@ -37,8 +37,12 @@ public class UpdateProductController extends BaseAuthController {
         int id = Integer.parseInt(request.getParameter("id"));
         ProductDBContext db = new ProductDBContext();
         Product product = db.getProduct(id);
+        if(product==null){
+            response.getWriter().println("Can't find the product");
+        }else{
         request.setAttribute("product", product);
         request.getRequestDispatcher("../view/product/update.jsp").forward(request, response);
+    }
     }
 
     /**

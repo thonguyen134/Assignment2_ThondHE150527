@@ -6,19 +6,21 @@
 package controller.products;
 
 import controller.BaseAuthController;
+import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Product;
+import valid.CheckValidate;
 
 /**
  *
  * @author tkoko
  */
 public class DeleteProductController extends BaseAuthController {
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -32,6 +34,22 @@ public class DeleteProductController extends BaseAuthController {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String raw_id = request.getParameter("id");
+        CheckValidate check = new CheckValidate();
+        if (check.checkInteger(raw_id)) {
+            int id = Integer.parseInt(raw_id);
+            ProductDBContext db = new ProductDBContext();
+            Product product = db.getProduct(id);
+            if (product == null) {
+                response.getWriter().println("id not valid!");
+            } else {
+                db.deleteProduct(id);
+                response.sendRedirect("search");
+            }
+        } else {
+            response.getWriter().println("please enter integer!");
+        }
+
     }
 
     /**

@@ -120,4 +120,17 @@ public class ProductDBContext extends DBContext{
             Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void deleteProduct(int id) {
+        try {
+            String sql = "DELETE FROM [Products]\n" +
+                    "WHERE p_id  = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

@@ -10,12 +10,25 @@
 <html>
     <head>
         <script>
-        function getQuantity(id,quantity){
-            var deleteQuantity = prompt("Enter the quantity you want to delete");
-            if(deleteQuantity>quantity){
-                alert("The quantity you want to delete is more than the quantity in stock");
-            }else{
-                window.location.href = "delete?id="+id+"&quantity="+deleteQuantity;
+//        function getQuantity(id,quantity){
+//            var deleteQuantity = prompt("Enter the quantity you want to delete");
+//            if(deleteQuantity>quantity){
+//                window.location.href = "search";
+//                alert("The quantity you want to delete is more than the quantity in stock");
+//            }else if(deleteQuantity==null){
+//                window.location.href = "search";
+//                alert("Please enter quantity!");
+//            }else if(deleteQuantity.trim().length==0){
+//                window.location.href = "search";
+//                alert("Please enter quantity!");
+//            }else{
+//                window.location.href = "delete?id="+id+"&quantity="+deleteQuantity;
+//            }
+//        }
+        function getQuantity(id){
+            var result = confirm("Are you sure?");
+            if(result==true){
+                window.location.href = "delete?id="+id;
             }
         }
     </script>
@@ -43,6 +56,7 @@
                 <td>Country</td>
                 <td>Price</td>
                 <td>Quantity</td>
+                <td><a href="insert">Insert</a></td>
             </tr>
             <c:forEach items="${requestScope.products}" var="p">
                 <tr>
@@ -54,7 +68,7 @@
                     <td>${p.quantity}</td>
                     <td>
                         <a href="update?id=${p.id}">Update</a>
-                        <a href="#" onclick="getQuantity(${p.id},${p.quantity})">Delete</a>
+                        <a href="#" onclick="getQuantity(${p.id})">Delete</a>
                     </td>
                 </tr>
             </c:forEach>
