@@ -146,7 +146,7 @@ public class EmployeeDBContext extends DBContext{
         return null;
     }
 
-    public void updateEmployee(Employee employee) {
+    public void updateEmployee(Employee employee,int id) {
         try {
             String sql = "UPDATE [Employees]\n" +
                     "   SET [e_first_name] = ?\n" +
@@ -165,11 +165,11 @@ public class EmployeeDBContext extends DBContext{
             stm.setBoolean(3, employee.isGender());
             stm.setDate(4, employee.getDob());
             stm.setDate(5, employee.getHiredate());
-            stm.setFloat(6, employee.getSalary());
+            stm.setInt(6, employee.getSalary());
             stm.setString(7, employee.getAddress());
             stm.setString(8, employee.getPhone());
             stm.setString(9, employee.getMail());
-            stm.setInt(10, employee.getId());
+            stm.setInt(10, id);
             stm.executeUpdate();
                     } catch (SQLException ex) {
             Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);

@@ -18,6 +18,11 @@ public class Account {
     public Account() {
     }
 
+    public Account(String username, String password, String displayname) {
+        this.username = username;
+        this.password = password;
+        this.displayname = displayname;
+    }
     public Account(String username, String password, String displayname, int eid) {
         this.username = username;
         this.password = password;
@@ -25,8 +30,7 @@ public class Account {
         this.eid = eid;
     }
 
-    public Account(String username, String password, String displayname) {
-        this.username = username;
+    public Account( String password, String displayname) {
         this.password = password;
         this.displayname = displayname;
     }

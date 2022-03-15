@@ -84,7 +84,7 @@ public class UpdateEmployeeController extends BaseAuthController {
         Date dob = null, hdate = null;
         int salary = 0;
         
-        String user = null, pass = null, displayname = null;
+        String  pass = null, displayname = null;
         boolean valid = true;
         if (check.checkString(raw_lastname)) {
             lastname = raw_lastname;
@@ -140,12 +140,6 @@ public class UpdateEmployeeController extends BaseAuthController {
             notice += "email, ";
             valid = false;
         }
-        if (check.checkStringAndNumber(raw_user)) {
-            user = raw_user;
-        } else {
-            notice += "user, ";
-            valid = false;
-        }
         if (check.checkStringAndNumber(raw_pass)) {
             pass = raw_pass;
         } else {
@@ -160,11 +154,13 @@ public class UpdateEmployeeController extends BaseAuthController {
         }
         if(valid == true){
         Employee employee = new Employee(lastname, firstname, gender, dob, hdate, salary, address, phone, mail);
-        Account account = new Account(user, pass, displayname);
+        Account account = new Account(pass, displayname);
         EmployeeDBContext edb = new EmployeeDBContext();
         AccountDBContext adb = new AccountDBContext();
-         edb.updateEmployee(employee);
-        adb.updateAccount(account);
+        int id =Integer.parseInt(request.getParameter("id"));
+        edb.updateEmployee(employee,id);
+        String user = request.getParameter("user");
+        adb.updateAccount(account,user);
         response.sendRedirect("list");
         }else{
             response.getWriter().println(notice.substring(0, notice.length()-2)+" invalid");

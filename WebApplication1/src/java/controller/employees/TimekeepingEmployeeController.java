@@ -87,11 +87,6 @@ public class TimekeepingEmployeeController extends BaseAuthController {
             throws ServletException, IOException {
         AccountDBContext adb = new AccountDBContext();
         Account account = (Account)request.getSession().getAttribute("account");
-        //khi nao xong xoa cho nay di
-        if(account == null){
-            response.getWriter().println("access denied!");
-            return;
-        }
         int g_id = adb.getGroupAccount(account.getUsername());
         if(g_id==1){
         EmployeeDBContext edb = new EmployeeDBContext();

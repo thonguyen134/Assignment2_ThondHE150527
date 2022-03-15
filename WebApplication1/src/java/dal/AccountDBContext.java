@@ -107,6 +107,21 @@ public class AccountDBContext extends DBContext{
        }
        return null;
    }
+   public int getEIdByUser(String user){
+       try {
+           String sql = "SELECT username,password,displayname,e_id FROM Account \n"
+                   + "WHERE username = ? ";
+           PreparedStatement stm  = connection.prepareStatement(sql);
+           stm.setString(1, user);
+           ResultSet rs = stm.executeQuery();
+           if(rs.next()){
+             return rs.getInt("e_id");
+           }
+       } catch (SQLException ex) {
+           Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return -1;
+   }
    public int getPermission(String username, String url)
     {
         try {
@@ -130,18 +145,16 @@ public class AccountDBContext extends DBContext{
         return -1;
     }
 
-    public void updateAccount(Account account) {
+    public void updateAccount(Account account, String user) {
        try {
            String sql = "UPDATE [Account]\n" +
-                   "   SET [username] = ?\n" +
-                   "      ,[password] = ?\n" +
+                   "   SET [password] = ?\n" +
                    "      ,[displayname] = ?\n" +
                    " WHERE e_id = ?";
            PreparedStatement stm = connection.prepareStatement(sql);
-           stm.setString(1, account.getUsername());
            stm.setString(2, account.getPassword());
            stm.setString(3, account.getDisplayname());
-           stm.setInt(4, account.getEid() );
+           stm.setInt(4, getEIdByUser(user));
            stm.executeUpdate();
        } catch (SQLException ex) {
            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,7 +168,7 @@ public class AccountDBContext extends DBContext{
             stm.setInt(1, id);
             stm.executeUpdate();
                     } catch (SQLException ex) {
-            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

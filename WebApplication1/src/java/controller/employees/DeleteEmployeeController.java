@@ -39,7 +39,7 @@ public class DeleteEmployeeController extends BaseAuthController {
         adb.deleteGroupAccount(id);
         edb.deleteEmployee(id);
         adb.deleteAccount(id);
-        response.sendRedirect("list");
+                response.sendRedirect("list");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
