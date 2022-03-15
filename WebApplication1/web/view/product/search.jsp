@@ -37,16 +37,45 @@
         
     </head>
     <body>
+        
         Hello: ${sessionScope.account.username}
-        <form action="search" method="GET">
+        <form action="search" method="POST">
             Phase:<select name="phase">
-                <option value="-1">All</option>
-                <option value="1">1</option>
-                <option value="3">3</option>
+                <option
+                    ${(requestScope.searchPhase==-1)?"selected=\"selected\"":""}
+                    value="-1">All</option>
+                <option
+                    ${(requestScope.searchPhase==1)?"selected=\"selected\"":""}
+                    value="1">1</option>
+                <option 
+                    ${(requestScope.searchPhase==3)?"selected=\"selected\"":""}
+                    value="3">3</option>
             </select>
-            Kw:<input type="text" name="kw" size="3">
-            Speed:<input type="text" name="speed" size="3">
-            <input type="submit" value="Search">
+            Kw:<input size="5" type="text" list="listkw" 
+                      placeholder="Enter"  name="kw"
+                      <c:if test="${requestScope.searchKw!=null}">
+                          value ="${requestScope.searchKw}"
+                      </c:if>
+                          <c:if test="${requestScope.searchKw==null}">
+                              value="All"
+                      </c:if>
+                      />
+            <datalist id="listkw">
+                <c:forTokens items="0.125,0.15,0.37,0.5,0.75,1.1,1.5,2.2,2.5,3,3.7,4,4.5,5,7.5,11,15,17,18.5,22,24,25,28,30,33,37,40,45,55,75,90,100,110,132,160,220" delims=","  var="i">
+                    <option
+                        
+                        value="${i}">${i}Kw</option>
+                             </c:forTokens>
+            </datalist>
+            Speed:<input type="text" name="speed" size="3" placeholder="Enter" 
+                         <c:if test="${requestScope.searchSpeed!=null}">
+                          value ="${requestScope.searchSpeed}"
+                      </c:if>
+                          <c:if test="${requestScope.searchSpeed==null}">
+                              value="All"
+                      </c:if>
+                         >
+            <input type="submit" value="Search" >
         </form>
         <table border="1px">
             <tr>

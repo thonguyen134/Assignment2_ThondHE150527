@@ -68,22 +68,13 @@ public class InsertProductController extends BaseAuthController {
             notice += "phase, ";
             valid = false;
         }
-        //check kw 1 phase and 3 phase
-        if (phase == 1 && valid == true) {
-            if (check.checkKwMotorOnePhase(raw_kw)) {
-                kw = Float.parseFloat(raw_kw);
-            } else {
+        //check kw 
+        if(check.checkKwMotor(raw_kw, phase)){
+            kw = Float.parseFloat(raw_kw);
+        }else {
                 notice += "kw, ";
                 valid = false;
             }
-        }else if(phase ==3 && valid ==true){
-            if (check.checkKwMotorThreePhase(raw_kw)) {
-                kw = Float.parseFloat(raw_kw);
-            } else {
-                notice += "kw, ";
-                valid = false;
-            }
-        }
         //check speed
         if (check.checkInteger(raw_speed)) {
             speed = Integer.parseInt(raw_speed);

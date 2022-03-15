@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.Product;
+import valid.CheckValidate;
 
 /**
  *
@@ -52,6 +53,56 @@ public class SearchProductController extends BaseAuthController {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        CheckValidate check = new CheckValidate();
+        String raw_phase = request.getParameter("phase");
+        String raw_kw = request.getParameter("kw");
+        String raw_speed = request.getParameter("speed");
+        int phase = 0, speed = 0;
+        float kw = 0;
+
+        String notice = "";
+        boolean valid = true;
+        //phase
+        if (check.checkPhaseMotor(raw_phase) == true || raw_phase.endsWith("-1")) {
+            phase = Integer.parseInt(raw_phase);
+        } else {
+            notice += "phase, ";
+            valid = false;
+        }
+        //kw
+        if (raw_kw.equalsIgnoreCase("All")) {
+            kw = -1;
+        } else {
+            if (check.checkKwMotor(raw_kw, phase)) {
+                kw = Float.parseFloat(raw_kw);
+            } else {
+                notice += "kw, ";
+                valid = false;
+            }
+        }
+        //speed
+        if (raw_speed.equalsIgnoreCase("All")) {
+            speed = -1;
+        } else {
+            if (check.checkInteger(raw_speed)) {
+                speed = Integer.parseInt(raw_speed);
+            } else {
+                notice += "speed, ";
+                valid = false;
+            }
+        }
+        //
+        if (valid == false) {
+            response.getWriter().println(notice.substring(0, notice.length() - 2) + " invalid");
+        } else {
+            ProductDBContext db = new ProductDBContext();
+            ArrayList<Product> products = db.searchProducts(phase,kw,speed);
+            request.setAttribute("searchPhase", phase);
+            request.setAttribute("searchKw", kw);
+            request.setAttribute("searchSpeed", speed);
+            request.setAttribute("products", products);
+            request.getRequestDispatcher("../view/product/search.jsp").forward(request, response);
+        }
     }
 
     /**
