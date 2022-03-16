@@ -12,6 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Order;
+import model.OrderDetail;
+import model.Product;
 import valid.CheckValidate;
 
 /**
@@ -35,16 +38,51 @@ public class AddCartController extends HttpServlet {
         String raw_id = request.getParameter("id");
         String raw_quantity = request.getParameter("quantity");
         CheckValidate check = new CheckValidate();
-        if(check.checkInteger(raw_id) && check.checkInteger(raw_quantity)){
+        if (check.checkInteger(raw_id) && check.checkInteger(raw_quantity)) {
             int id = Integer.parseInt(raw_id);
+            Product product = db.getProduct(id);
             int quantity = Integer.parseInt(raw_quantity);
             boolean checkProductValid = db.checkProductValid(id, quantity);
-            if(checkProductValid==false){
+            if (checkProductValid == false) {
                 response.getWriter().println("product invalid!");
-            }else{
+            } else {
                 //add to cart
-            response.getWriter().println(raw_id);
-            response.getWriter().println(raw_quantity);
+                Order orders = (Order) request.getSession().getAttribute("shoppingcart");
+
+                if (orders == null) {
+                    orders = new Order();
+                }
+                boolean isExist = false;
+                boolean checkQuantity = false;
+                for (OrderDetail detail : orders.getOrderDetails()) {
+                    //update quantity and unitprice
+                    if (detail.getProduct().getId() == product.getId()
+                            && detail.getQuantity() + quantity <= product.getQuantity()) {
+                        detail.setQuantity(detail.getQuantity() + quantity);
+                        detail.setUnitPrice(detail.getQuantity()*product.getPrice());
+                        isExist = true;
+                        break;
+                        //check quantity buy more than quantity we have
+                    } else if (detail.getProduct().getId() == product.getId()
+                            && detail.getQuantity() + quantity > product.getQuantity()) {
+                        checkQuantity = true;
+                        break;
+                    }
+                }
+                if (checkQuantity == true) {
+                    response.getWriter().println("not oke");
+                } else {
+                    if (isExist == false) {
+                        OrderDetail detail = new OrderDetail();
+                        detail.setOrder(orders);
+                        detail.setProduct(product);
+                        detail.setQuantity(quantity);
+                        detail.setUnitPrice(quantity * product.getPrice());
+                        orders.getOrderDetails().add(detail);
+                    }
+                    request.getSession().setAttribute("shoppingcart", orders);
+                    response.sendRedirect("../product/search");
+                }
             }
         }
     }

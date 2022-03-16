@@ -32,7 +32,8 @@
             }
         }
         function checkQuantity(id,quantity){
-            var quantityBuy = document.getElementById("quantity").value;
+            var quantityId = "quantity"+id;
+            var quantityBuy = document.getElementById(quantityId).value;
             if(quantityBuy<=quantity && quantityBuy >0){
                 return true;
             }else{
@@ -120,7 +121,9 @@
                     <td>
                         <form action="../order/addcart" method="POST">
                             <input hidden="" name="id" value="${p.id}">
-                            <input id="quantity" type="text" name="quantity" size="1">
+                            <input
+                                <c:out value="id=quantity${p.id}"></c:out> 
+                                type="text" name="quantity" size="1">
                             <input type="submit" value="Buy" onclick="return checkQuantity(${p.id},${p.quantity})">
                         </form>
                     </td>
