@@ -31,6 +31,15 @@
                 window.location.href = "delete?id="+id;
             }
         }
+        function checkQuantity(id,quantity){
+            var quantityBuy = document.getElementById("quantity").value;
+            if(quantityBuy<=quantity && quantityBuy >0){
+                return true;
+            }else{
+                alert("The quantity invalid");
+                return false;
+            }
+        }
     </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
@@ -53,10 +62,10 @@
             </select>
             Kw:<input size="5" type="text" list="listkw" 
                       placeholder="Enter"  name="kw"
-                      <c:if test="${requestScope.searchKw!=null}">
+                      <c:if test="${requestScope.searchKw!=null && requestScope.searchKw!=-1}">
                           value ="${requestScope.searchKw}"
                       </c:if>
-                          <c:if test="${requestScope.searchKw==null}">
+                          <c:if test="${requestScope.searchKw==null || requestScope.searchKw==-1 }">
                               value="All"
                       </c:if>
                       />
@@ -68,10 +77,10 @@
                              </c:forTokens>
             </datalist>
             Speed:<input type="text" name="speed" size="3" placeholder="Enter" 
-                         <c:if test="${requestScope.searchSpeed!=null}">
+                         <c:if test="${requestScope.searchSpeed!=null && requestScope.searchSpeed!=-1 }">
                           value ="${requestScope.searchSpeed}"
                       </c:if>
-                          <c:if test="${requestScope.searchSpeed==null}">
+                          <c:if test="${requestScope.searchSpeed==null || requestScope.searchSpeed==-1}">
                               value="All"
                       </c:if>
                          >
@@ -85,7 +94,12 @@
                 <td>Country</td>
                 <td>Price</td>
                 <td>Quantity</td>
-                <td><a href="insert">Insert</a></td>
+                <td
+                    <c:if test="${requestScope.groupAccount!=1}">
+                            hidden=""
+                        </c:if>
+                    ><a href="insert">Insert</a></td>
+                <td>BuyQuantity</td>
             </tr>
             <c:forEach items="${requestScope.products}" var="p">
                 <tr>
@@ -95,9 +109,20 @@
                     <td>${p.country}</td>
                     <td>${p.price}</td>
                     <td>${p.quantity}</td>
-                    <td>
+                    <td 
+                        <c:if test="${requestScope.groupAccount!=1}">
+                            hidden=""
+                        </c:if>
+                        >
                         <a href="update?id=${p.id}">Update</a>
                         <a href="#" onclick="getQuantity(${p.id})">Delete</a>
+                    </td>
+                    <td>
+                        <form action="../order/addcart" method="POST">
+                            <input hidden="" name="id" value="${p.id}">
+                            <input id="quantity" type="text" name="quantity" size="1">
+                            <input type="submit" value="Buy" onclick="return checkQuantity(${p.id},${p.quantity})">
+                        </form>
                     </td>
                 </tr>
             </c:forEach>

@@ -6,6 +6,7 @@
 package controller.products;
 
 import controller.BaseAuthController;
+import dal.AccountDBContext;
 import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,6 +40,10 @@ public class SearchProductController extends BaseAuthController {
         ProductDBContext db = new ProductDBContext();
         ArrayList<Product> products = db.getProducts();
         request.setAttribute("products", products);
+//        Account account = (Account) request.getSession().getAttribute("account");
+//        AccountDBContext adb = new AccountDBContext();
+//        int groupAccount = adb.getGroupAccount(account.getUsername());
+//        request.setAttribute("groupAccount", groupAccount);
         request.getRequestDispatcher("../view/product/search.jsp").forward(request, response);
     }
 
@@ -95,8 +100,11 @@ public class SearchProductController extends BaseAuthController {
         if (valid == false) {
             response.getWriter().println(notice.substring(0, notice.length() - 2) + " invalid");
         } else {
+            
             ProductDBContext db = new ProductDBContext();
             ArrayList<Product> products = db.searchProducts(phase,kw,speed);
+            
+            
             request.setAttribute("searchPhase", phase);
             request.setAttribute("searchKw", kw);
             request.setAttribute("searchSpeed", speed);

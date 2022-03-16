@@ -40,6 +40,10 @@
         <servlet-name>SearchProductController</servlet-name>
         <servlet-class>controller.products.SearchProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCartController</servlet-name>
+        <servlet-class>controller.order.AddCartController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>SearchProductController</servlet-name>
         <url-pattern>/product/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCartController</servlet-name>
+        <url-pattern>/order/addcart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

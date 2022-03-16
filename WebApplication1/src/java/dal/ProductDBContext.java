@@ -154,7 +154,7 @@ public class ProductDBContext extends DBContext{
             //speed
             if((phase >=1 || kw >0) && speed >0 ){
                 sql += "AND speed_minutes = '"+speed+"'\n";
-            }else if(phase != -1 && kw != -1 && speed >0){
+            }else if(phase == -1 && kw == -1 && speed >0){
                 sql += "speed_minutes = '"+speed+"'\n";
             }
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -176,5 +176,20 @@ public class ProductDBContext extends DBContext{
             Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
        return null;
+    }
+    public boolean checkProductValid(int id,int quantity){
+        try {
+            String sql = "select p_id from products\n" +
+                    "where p_id = ? AND quantity >= ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.setInt(2, quantity);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next())
+                return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }
