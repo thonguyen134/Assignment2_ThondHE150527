@@ -13,15 +13,20 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <c:if test="${sessionScope.shoppingcart==null}">
+            <p>don't have anything</p>
+        </c:if>
+            <c:if test="${sessionScope.shoppingcart!=null}">
         <table border="1px">
             <tr>
-                <td></td>
+                <td>Id</td>
                 <td>Phase</td>
                 <td>Kw</td>
                 <td>Speed</td>
                 <td>Country</td>
                 <td>Price</td>
                 <td>Quantity</td>
+                <td>Unitprice</td>
             </tr>
             <c:forEach items="${sessionScope.shoppingcart.orderDetails}" var="o">
                 <tr>
@@ -35,7 +40,18 @@
                     <td>${o.unitPrice}</td> 
                 </tr>
             </c:forEach>
-            
+                <tr>
+                    <td colspan="7">Total</td>
+                    <td>${sessionScope.shoppingcart.total}</td>
+                </tr>
         </table>
+                <form action="shopping" method="POST">
+                Information Customer:<br/>
+                Name:<input type="text" name="name"><br/>
+                Phone:<input type="text" name="phone"><br/>
+                Address:<input type="text" name="address"><br/>
+                    <input type="submit" value="Buy">
+                </form>
+                </c:if>
     </body>
 </html>

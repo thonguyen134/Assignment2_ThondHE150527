@@ -5,25 +5,21 @@
  */
 package controller.order;
 
-import dal.CustomerDBContext;
 import dal.OrderDBContext;
-import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.Customer;
-import model.Order;
-import valid.CheckValidate;
+import model.OrderDetail;
 
 /**
  *
  * @author tkoko
  */
-public class ShoppingController extends HttpServlet {
+public class OrderDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,7 +30,16 @@ public class ShoppingController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
- 
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        OrderDBContext db = new OrderDBContext();
+        String raw_id = request.getParameter("id");
+        //valid mai check
+        int id = Integer.parseInt(raw_id);
+        ArrayList<OrderDetail> ordersDetail = db.getOrdersDetail(id);
+        request.setAttribute("detail", ordersDetail);
+        request.getRequestDispatcher("../view/order/detail.jsp").forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -48,8 +53,7 @@ public class ShoppingController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Order order = (Order)request.getSession().getAttribute("shoppingcart");
-        request.getRequestDispatcher("../view/order/shopping.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -63,30 +67,7 @@ public class ShoppingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String raw_name = request.getParameter("name");
-        String raw_phone = request.getParameter("phone");
-        String raw_address = request.getParameter("address");
-        CheckValidate check = new CheckValidate();
-        if(check.checkString(raw_name)||check.checkPhone(raw_phone)||check.checkStringAndNumber(raw_address)){
-            //add order orderdetail customer to database
-            Customer c = new Customer(raw_name, raw_phone, raw_address);
-            CustomerDBContext cdb = new CustomerDBContext();
-            OrderDBContext odb = new OrderDBContext();
-            ProductDBContext pdb = new ProductDBContext();
-            Account account = (Account)request.getSession().getAttribute("account");
-            Order order = (Order)request.getSession().getAttribute("shoppingcart");
-            
-            cdb.insertCustomer(c);
-            odb.insertOrder(account.getUsername());
-            odb.insertOrderDetail(order);
-            //update lai quantity cua product 
-            pdb.updateQuantityProduct(order);
-            request.getSession().setAttribute("shoppingcart", null);
-            response.getWriter().println("oke la");
-        }else{
-            response.getWriter().println("Information invalid!");
-        }
-        
+        processRequest(request, response);
     }
 
     /**

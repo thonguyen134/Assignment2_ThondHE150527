@@ -15,11 +15,6 @@ public class OrderDetail {
     private int quantity;
     private float unitPrice;
     
-    
-    public float getTotal()
-    {
-        return quantity * unitPrice;
-    }
     public Order getOrder() {
         return order;
     }

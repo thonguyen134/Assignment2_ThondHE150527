@@ -152,7 +152,7 @@ public class CheckValidate {
             return false;
         }
         if (phase == 3) {
-            double[] arrayKw = {0.37, 0.5, 0.75, 1.1, 1.5, 2.2, 2.5, 3, 3.7, 4, 4.5, 5, 7.5, 11,
+            double[] arrayKw = {0.37, 0.5, 0.75, 1.1, 1.5, 2.2, 2.8, 3, 3.7, 4, 4.5, 5, 7.5, 11,
                 15, 17, 18.5, 22, 24, 25, 28, 30, 33, 37, 40, 45, 55, 75, 90, 100, 110, 132, 160, 220};
             for (int i = 0; i < arrayKw.length; i++) {
                 if (kwMotor == (arrayKw[i])) {
@@ -161,7 +161,7 @@ public class CheckValidate {
             }
             return false;
         } else if (phase == 1) {
-            double[] arrayKw = {0.125, 0.15, 0.37, 0.5, 0.75, 1.1, 1.5, 2.5, 3, 4, 5};
+            double[] arrayKw = {0.125, 0.15, 0.37, 0.5, 0.75, 1.1, 1.5, 2.8, 3, 4, 5};
             for (int i = 0; i < arrayKw.length; i++) {
                 if (kwMotor == (arrayKw[i])) {
                     return true;
@@ -169,7 +169,7 @@ public class CheckValidate {
             }
             return false;
         } else {
-            double[] arrayKw = {0.125, 0.15, 0.37, 0.5, 0.75, 1.1, 1.5, 2.2, 2.5, 3, 3.7, 4, 4.5, 5, 7.5, 11,
+            double[] arrayKw = {0.125, 0.15, 0.37, 0.5, 0.75, 1.1, 1.5, 2.2, 2.8, 3, 3.7, 4, 4.5, 5, 7.5, 11,
                 15, 17, 18.5, 22, 24, 25, 28, 30, 33, 37, 40, 45, 55, 75, 90, 100, 110, 132, 160, 220};
             for (int i = 0; i < arrayKw.length; i++) {
                 if (kwMotor == (arrayKw[i])) {

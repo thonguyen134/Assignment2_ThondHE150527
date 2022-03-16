@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Order;
+import model.OrderDetail;
 import model.Product;
 
 /**
@@ -191,5 +193,36 @@ public class ProductDBContext extends DBContext{
             Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    public void updateQuantityProduct(Order order){
+         String sql = "UPDATE [Products]\n" +
+                    "   SET [quantity] = [quantity]-?\n" +
+                    " WHERE p_id = ?";
+            try {
+            connection.setAutoCommit(false);
+                for (OrderDetail o : order.getOrderDetails()) {
+                    PreparedStatement stm = connection.prepareStatement(sql);
+                    stm.setInt(1, o.getQuantity());
+                    stm.setInt(2, o.getProduct().getId());
+                    stm.executeUpdate();
+                }
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        finally
+        {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //close connection
+        }
     }
 }
