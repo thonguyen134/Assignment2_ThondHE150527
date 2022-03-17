@@ -5,6 +5,7 @@
  */
 package controller.order;
 
+import controller.BaseAuthController;
 import dal.CustomerDBContext;
 import dal.OrderDBContext;
 import dal.ProductDBContext;
@@ -23,7 +24,7 @@ import valid.CheckValidate;
  *
  * @author tkoko
  */
-public class ShoppingController extends HttpServlet {
+public class ShoppingController extends BaseAuthController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,7 +47,7 @@ public class ShoppingController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Order order = (Order)request.getSession().getAttribute("shoppingcart");
         request.getRequestDispatcher("../view/order/shopping.jsp").forward(request, response);
@@ -61,7 +62,7 @@ public class ShoppingController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String raw_name = request.getParameter("name");
         String raw_phone = request.getParameter("phone");

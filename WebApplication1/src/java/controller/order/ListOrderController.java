@@ -5,6 +5,7 @@
  */
 package controller.order;
 
+import controller.BaseAuthController;
 import dal.OrderDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +20,7 @@ import model.Order;
  *
  * @author tkoko
  */
-public class ListOrderController extends HttpServlet {
+public class ListOrderController extends BaseAuthController {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -30,7 +31,7 @@ public class ListOrderController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         OrderDBContext db = new OrderDBContext();
         ArrayList<Order> orders = db.getOrders();
@@ -47,7 +48,7 @@ public class ListOrderController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
     }

@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="../img/cart.png" rel="stylesheet" type="text/css"/>
         <script>
 //        function getQuantity(id,quantity){
 //            var deleteQuantity = prompt("Enter the quantity you want to delete");
@@ -47,7 +48,7 @@
         
     </head>
     <body>
-        
+        <img src="../img/cart.png" alt="cart" style="width: 30px">
         Hello: ${sessionScope.account.username}
         <form action="search" method="POST">
             Phase:<select name="phase">
@@ -101,6 +102,7 @@
                         </c:if>
                     ><a href="insert">Insert</a></td>
                 <td>BuyQuantity</td>
+                <td ><a href="#">Shop</a></td>
             </tr>
             <c:forEach items="${requestScope.products}" var="p">
                 <tr>
@@ -108,7 +110,7 @@
                     <td>${p.kw}</td>
                     <td>${p.speed}</td>
                     <td>${p.country}</td>
-                    <td>${p.price}</td>
+                    <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${p.price}" /></td>
                     <td>${p.quantity}</td>
                     <td 
                         <c:if test="${requestScope.groupAccount!=1}">
@@ -119,7 +121,7 @@
                         <a href="#" onclick="getQuantity(${p.id})">Delete</a>
                     </td>
                     <td>
-                        <form action="../order/addcart" method="POST">
+                        <form action="../order/add" method="POST">
                             <input hidden="" name="id" value="${p.id}">
                             <input
                                 <c:out value="id=quantity${p.id}"></c:out> 

@@ -13,6 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <c:if test="${requestScope.detail.size()!=0}">
         <table border='1px'>
             <tr>
                 <td>Phase</td>
@@ -25,15 +26,19 @@
             </tr>
             <c:forEach items="${requestScope.detail}" var="d">
                 <tr>
-                    <td>${d.product.id}</td>
+                    <td>${d.product.phase}</td>
                     <td>${d.product.kw}</td>
                     <td>${d.product.speed}</td>
                     <td>${d.product.country}</td>
-                    <td>${d.product.price}</td>
-                    <td>${d.product.quantity}</td>
-                    <td>${d.product.quantity*d.product.price}</td>
+                    <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${d.product.price}" /></td>
+                    <td>${d.quantity}</td> 
+                    <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${d.quantity*d.product.price}" /></td>
                 </tr>
             </c:forEach>
         </table>
+            </c:if>
+        <c:if test="${requestScope.detail.size()==0}">
+            No orders yet!
+        </c:if>
     </body>
 </html>

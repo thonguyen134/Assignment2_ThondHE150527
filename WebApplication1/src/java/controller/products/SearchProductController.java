@@ -40,10 +40,10 @@ public class SearchProductController extends BaseAuthController {
         ProductDBContext db = new ProductDBContext();
         ArrayList<Product> products = db.getProducts();
         request.setAttribute("products", products);
-//        Account account = (Account) request.getSession().getAttribute("account");
-//        AccountDBContext adb = new AccountDBContext();
-//        int groupAccount = adb.getGroupAccount(account.getUsername());
-//        request.setAttribute("groupAccount", groupAccount);
+        Account account = (Account) request.getSession().getAttribute("account");
+        AccountDBContext adb = new AccountDBContext();
+        int groupAccount = adb.getGroupAccount(account.getUsername());
+        request.setAttribute("groupAccount", groupAccount);
         request.getRequestDispatcher("../view/product/search.jsp").forward(request, response);
     }
 

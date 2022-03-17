@@ -37,12 +37,15 @@
                     <td>${o.product.country}</td> 
                     <td>${o.product.price}</td> 
                     <td>${o.quantity}</td> 
-                    <td>${o.unitPrice}</td> 
+                    <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${o.unitPrice}" /></td> 
+                    
                 </tr>
             </c:forEach>
                 <tr>
                     <td colspan="7">Total</td>
-                    <td>${sessionScope.shoppingcart.total}</td>
+                    <td>
+                        <fmt:formatNumber type="number" maxFractionDigits="3" value=" ${sessionScope.shoppingcart.total}" />
+                    </td>
                 </tr>
         </table>
                 <form action="shopping" method="POST">

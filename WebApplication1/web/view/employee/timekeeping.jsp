@@ -74,9 +74,8 @@
                         <td>Salary</td>
                         <c:forEach items="${requestScope.employees}" var="e">
                             <c:set var="salary" value="${(e.salary/requestScope.dayOfMonth.size()*e.timekeeping.size())}" />
-                            <td><strong>
+                            <td>
             <fmt:formatNumber type="number" maxFractionDigits="3" value="${salary}" />
-                        </strong>đ</td>
                         </c:forEach>
                     </tr>
             </table>

@@ -27,7 +27,7 @@
                     <td>${o.customerName}</td>
                     <td>${o.username}</td>
                     <td>${o.dateOrder}</td>
-                    <td>${o.total}</td>
+                    <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${o.total}" /></td> 
                     <td><a href="detail?id=${o.id}">Details</a>
                     </td>
                 </tr>
