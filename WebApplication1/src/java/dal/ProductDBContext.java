@@ -123,10 +123,11 @@ public class ProductDBContext extends DBContext{
         }
     }
 
-    public void deleteProduct(int id) {
+    public void updateQuantityProduct(int id) {
         try {
-            String sql = "DELETE FROM [Products]\n" +
-                    "WHERE p_id  = ?";
+            String sql = "UPDATE [Products]\n" +
+                    "   SET [quantity] = 0\n" +
+                    " WHERE p_id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             stm.executeUpdate();

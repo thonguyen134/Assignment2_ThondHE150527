@@ -43,7 +43,8 @@ public class DeleteProductController extends BaseAuthController {
             if (product == null) {
                 response.getWriter().println("id not valid!");
             } else {
-                db.deleteProduct(id);
+                //update quantity product = 0 ;
+                db.updateQuantityProduct(id);
                 response.sendRedirect("search");
             }
         } else {

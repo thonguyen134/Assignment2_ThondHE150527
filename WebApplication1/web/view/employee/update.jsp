@@ -9,12 +9,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="../css/employeeInsertUpdate.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
     <body>
-        <span style="color: blue"> update employee and employee account</span>
-        <form action="update" method="POST">
+        <div class="container">
+        <form id="contact"  action="update" method="POST">
+            <h3>Insert Employee</h3>
+    <h4>Hello ${sessionScope.account.displayname}</h4>
             <input hidden="" type="text" value="${requestScope.employee.id}" name="id">
             Firstname:<input type="text" name="firstname" value="${requestScope.employee.firstname}"><br/>
             Lastname:<input type="text" name="lastname" value="${requestScope.employee.lastname}" ><br/>
@@ -37,7 +40,9 @@
             AccountUser:${requestScope.account.username}<input hidden="" type="text" name="user" value="${requestScope.account.username}"><br/>
             AccountPass:<input type="text" name="pass" value="${requestScope.account.password}"><br/>
             DisplayName:<input type="text" name="displayname" value="${requestScope.account.displayname}"><br/>
+            <input type="reset" value="Reset">
             <input type="submit" value="Update">
         </form>
+            </div>
     </body>
 </html>

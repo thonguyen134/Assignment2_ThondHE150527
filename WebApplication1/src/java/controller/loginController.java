@@ -21,8 +21,6 @@ import valid.CheckValidate;
  */
 public class loginController extends HttpServlet {
 
-   
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -52,23 +50,21 @@ public class loginController extends HttpServlet {
         CheckValidate valid = new CheckValidate();
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
-     
+
         //valid login okla
-        if(valid.checkStringAndNumber(user) && valid.checkStringAndNumber(pass)){
+        if (valid.checkStringAndNumber(user) && valid.checkStringAndNumber(pass)) {
             AccountDBContext db = new AccountDBContext();
             Account account = db.getAccount(user, pass);
-            if(account!=null){
-            request.getSession().setAttribute("account", account);
-            //chuyen trang theo tk, nhan vien thi ban hang 
-            //admin quan ly thi chuyen sang quan ly products
-            response.getWriter().println("Login oke");
-            }else{
-               response.getWriter().println("sai tk or mat khau roi"); 
+            if (account != null) {
+                request.getSession().setAttribute("account", account);
+                response.sendRedirect("product/search");
+            } else {
+                response.getWriter().println("Username or password incorrect");
             }
-        }else{
+        } else {
             response.getWriter().println("Login error");
         }
-        
+
     }
 
     /**

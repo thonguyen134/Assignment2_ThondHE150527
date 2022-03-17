@@ -11,23 +11,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script>
-            function ValidateEmail(inputText)
-{
-	var mailformat = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-	if(inputText.value.match(mailformat))
-	{
-		alert("This is not a valid email address");
-		return false;
-		}
-}
-        </script>
+        <link href="../css/employeeInsertUpdate.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        Hello ${sessionScope.account.displayname}
-        <br/>
-        <span style="color: blue"> Insert employee and employee account</span>
-        <form action="insert" method="POST">
+        <div class="container">  
+    <form id="contact" action="insert" method="POST">
+        <h3>Insert Employee</h3>
+    <h4>Hello ${sessionScope.account.displayname}</h4>
             Firstname:<input type="text" name="firstname"><br/>
             Lastname:<input type="text" name="lastname"><br/>
             Male<input type="radio" name="gender" value="male">
@@ -41,7 +31,9 @@
             AccountUser:<input type="text" name="user"><br/>
             AccountPass:<input type="text" name="pass"><br/>
             DisplayName:<input type="text" name="displayname"><br/>
+            <input type="reset" value="Reset">
             <input type="submit" value="Insert" onclick="ValidateEmail()">
         </form>
+</div>
     </body>
 </html>

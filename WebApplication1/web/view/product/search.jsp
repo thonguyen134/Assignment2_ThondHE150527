@@ -48,7 +48,7 @@
         
     </head>
     <body>
-        <img src="../img/cart.png" alt="cart" style="width: 30px">
+        
         Hello: ${sessionScope.account.username}
         <form action="search" method="POST">
             Phase:<select name="phase">
@@ -102,9 +102,12 @@
                         </c:if>
                     ><a href="insert">Insert</a></td>
                 <td>BuyQuantity</td>
-                <td ><a href="#">Shop</a></td>
+                <td ><a href="../order/shopping">
+                        <img src="../img/cart.png" alt="cart" style="width: 30px">
+                        </a></td>
             </tr>
             <c:forEach items="${requestScope.products}" var="p">
+                <c:if test="${p.quantity!=0}">
                 <tr>
                     <td>${p.phase}</td>
                     <td>${p.kw}</td>
@@ -130,6 +133,7 @@
                         </form>
                     </td>
                 </tr>
+                </c:if>
             </c:forEach>
         </table>
     </body>
