@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="../css/list.css" rel="stylesheet" type="text/css"/>
         <link href="../img/cart.png" rel="stylesheet" type="text/css"/>
         <script>
 //        function getQuantity(id,quantity){
@@ -48,8 +49,11 @@
         
     </head>
     <body>
-        
+        <div class="header">
         Hello: ${sessionScope.account.username}
+        <a href="../order/shopping" class="buy">
+                        <img src="../img/cart.png" alt="cart" style="width: 30px">
+                        </a>
         <form action="search" method="POST">
             Phase:<select name="phase">
                 <option
@@ -87,8 +91,12 @@
                       </c:if>
                          >
             <input type="submit" value="Search" >
+            
         </form>
+                    
+                </div>    
         <table border="1px">
+            <thead>
             <tr>
                 <td>Phase</td>
                 <td>Kw</td>
@@ -102,10 +110,10 @@
                         </c:if>
                     ><a href="insert">Insert</a></td>
                 <td>BuyQuantity</td>
-                <td ><a href="../order/shopping">
-                        <img src="../img/cart.png" alt="cart" style="width: 30px">
-                        </a></td>
+                
             </tr>
+            </thead>
+            <tbody>
             <c:forEach items="${requestScope.products}" var="p">
                 <c:if test="${p.quantity!=0}">
                 <tr>
@@ -135,6 +143,7 @@
                 </tr>
                 </c:if>
             </c:forEach>
+                </tbody>
         </table>
     </body>
     

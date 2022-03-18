@@ -56,7 +56,11 @@
                 <tbody>
                 <!--display day of month-->
                 <c:forEach items="${requestScope.dayOfMonth}" var="d" >
-                    <tr><td>${d}</td> 
+                    <tr><td 
+                            <c:if test="${d==requestScope.today}">
+                                style="color: crimson"
+                            </c:if>
+                            >${d}</td> 
                         <c:forEach items="${requestScope.employees}" var="e">
                             <!--hidden if employeee.hiredate<day-->
                             <!--and checked if had in database-->

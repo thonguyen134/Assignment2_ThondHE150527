@@ -13,6 +13,7 @@ import dal.TimekeepingDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -62,6 +63,10 @@ public class TimekeepingEmployeeController extends BaseAuthController {
                 listYear.add(i);
             }   Date d = new Date();
             try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date raw_today = new java.util.Date();
+                String today = sdf.format(raw_today);
+                request.setAttribute("today", today);
             ArrayList<String> dayOfMonth = d.getDayOfMonth(year, month);
             request.setAttribute("dayOfMonth", dayOfMonth);
             request.setAttribute("year", year);

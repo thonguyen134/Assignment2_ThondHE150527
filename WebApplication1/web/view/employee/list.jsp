@@ -19,7 +19,7 @@
                 }
             }
         </script>
-        <link href="../css/listEmployee.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/list.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <table>

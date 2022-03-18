@@ -11,16 +11,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="../css/list.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <table border='1px'>
+            <thead>
             <tr>
                 <td></td>
-                <td>Nguoi mua</td>
-                <td>account ban</td>
-                <td>Ngay</td>
-                <td>Don gia</td>
+                <td>Customer</td>
+                <td>Salesman</td>
+                <td>Date</td>
+                <td>Unitprice</td>
+                <td>Details</td>
             </tr>
+             </thead>
+             <tbody>
             <c:forEach items="${requestScope.orders}" var="o">
                 <tr>
                     <td>${o.id}</td>
@@ -32,6 +37,7 @@
                     </td>
                 </tr>
             </c:forEach>
+               </tbody>
         </table>
     </body>
 </html>
