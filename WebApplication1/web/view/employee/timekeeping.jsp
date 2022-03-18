@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="../css/timekeeping.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
             <!--search following year month-->
@@ -39,6 +40,7 @@
         <input hidden="" type="text" value="${requestScope.month}" name="month" >
             <input type="submit" value="save">
             <table border="1px">
+                <thead>
                 <tr>
                     <td></td>
                     <!--display employees-->
@@ -50,6 +52,8 @@
                         </td>
                     </c:forEach>
                 </tr>
+                </thead>
+                <tbody>
                 <!--display day of month-->
                 <c:forEach items="${requestScope.dayOfMonth}" var="d" >
                     <tr><td>${d}</td> 
@@ -78,6 +82,7 @@
             <fmt:formatNumber type="number" maxFractionDigits="3" value="${salary}" />
                         </c:forEach>
                     </tr>
+                    </tbody>
             </table>
             <br/>
         </form>

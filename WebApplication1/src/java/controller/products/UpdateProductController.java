@@ -118,7 +118,7 @@ public class UpdateProductController extends BaseAuthController {
             Product p = new Product(id,phase, kw, speed, country, price, quantity);
             ProductDBContext db = new ProductDBContext();
             db.updateProduct(p);
-            response.getWriter().println("insert successful!");
+            response.sendRedirect("search");
         }
     }
 

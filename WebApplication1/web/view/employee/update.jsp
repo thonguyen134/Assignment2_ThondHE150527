@@ -16,7 +16,7 @@
     <body>
         <div class="container">
         <form id="contact"  action="update" method="POST">
-            <h3>Insert Employee</h3>
+            <h3>Update Employee</h3>
     <h4>Hello ${sessionScope.account.displayname}</h4>
             <input hidden="" type="text" value="${requestScope.employee.id}" name="id">
             Firstname:<input type="text" name="firstname" value="${requestScope.employee.firstname}"><br/>

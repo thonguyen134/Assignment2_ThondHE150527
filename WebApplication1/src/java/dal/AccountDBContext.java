@@ -152,20 +152,22 @@ public class AccountDBContext extends DBContext{
                    "      ,[displayname] = ?\n" +
                    " WHERE e_id = ?";
            PreparedStatement stm = connection.prepareStatement(sql);
-           stm.setString(2, account.getPassword());
-           stm.setString(3, account.getDisplayname());
-           stm.setInt(4, getEIdByUser(user));
+           stm.setString(1, account.getPassword());
+           stm.setString(2, account.getDisplayname());
+           stm.setInt(3, getEIdByUser(user));
            stm.executeUpdate();
        } catch (SQLException ex) {
            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
-    public void deleteAccount(int id) {
+    public void updateEidAccount(int id) {
         try {
-            String sql = "DELETE FROM [Account]\n" +
-                         "WHERE e_id = ?";
+            String sql = "UPDATE [Account]\n" +
+                    "   SET [e_id] = NULL\n" +
+                    " WHERE username = ?";
+            Account account = getAccountById(id);
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, id);
+            stm.setString(1, account.getUsername());
             stm.executeUpdate();
                     } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);

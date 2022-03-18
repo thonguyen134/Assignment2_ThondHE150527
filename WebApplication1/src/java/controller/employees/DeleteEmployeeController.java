@@ -37,8 +37,8 @@ public class DeleteEmployeeController extends BaseAuthController {
         EmployeeDBContext edb = new EmployeeDBContext();
         AccountDBContext adb = new AccountDBContext();
         adb.deleteGroupAccount(id);
+        adb.updateEidAccount(id);
         edb.deleteEmployee(id);
-        adb.deleteAccount(id);
                 response.sendRedirect("list");
     }
 

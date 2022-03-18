@@ -74,7 +74,7 @@ public class InsertEmployeeController extends BaseAuthController {
         boolean gender = false;
         Date dob = null, hdate = null;
         int salary = 0;
-        
+
         String user = null, pass = null, displayname = null;
         boolean valid = true;
         if (check.checkString(raw_lastname)) {
@@ -149,17 +149,24 @@ public class InsertEmployeeController extends BaseAuthController {
             notice += "displayname, ";
             valid = false;
         }
-        if(valid == true){
-        Employee employee = new Employee(lastname, firstname, gender, dob, hdate, salary, address, phone, mail);
-        Account account = new Account(user, pass, displayname);
-        EmployeeDBContext edb = new EmployeeDBContext();
-        AccountDBContext adb = new AccountDBContext();
-        edb.insertEmployee(employee);
-        adb.insertAccount(account);
-        adb.insertGroupAccount(user);
-        response.sendRedirect("list");
-        }else{
-            response.getWriter().println(notice.substring(0, notice.length()-2)+" invalid");
+        if (valid == true) {
+            Employee employee = new Employee(lastname, firstname, gender, dob, hdate, salary, address, phone, mail);
+            Account account = new Account(user, pass, displayname);
+            EmployeeDBContext edb = new EmployeeDBContext();
+            AccountDBContext adb = new AccountDBContext();
+
+            //check user exist
+            if (!adb.checkAccountExist(user)) {
+                edb.insertEmployee(employee);
+                adb.insertAccount(account);
+                adb.insertGroupAccount(user);
+                response.sendRedirect("list");
+            } else {
+                response.getWriter().println("Username is exist!");
+            }
+
+        } else {
+            response.getWriter().println(notice.substring(0, notice.length() - 2) + " invalid");
         }
     }
 
