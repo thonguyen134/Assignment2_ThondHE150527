@@ -21,7 +21,7 @@ public abstract class BaseAuthController extends HttpServlet {
     {
         Account account = (Account) request.getSession().getAttribute("account");
        if(account == null)
-            return true;
+            return false;
         else
         {
             String url = request.getServletPath();
