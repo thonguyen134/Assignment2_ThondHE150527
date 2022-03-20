@@ -104,7 +104,10 @@ public class SearchProductController extends BaseAuthController {
             ProductDBContext db = new ProductDBContext();
             ArrayList<Product> products = db.searchProducts(phase,kw,speed);
             
-            
+            Account account = (Account) request.getSession().getAttribute("account");
+        AccountDBContext adb = new AccountDBContext();
+        int groupAccount = adb.getGroupAccount(account.getUsername());
+        request.setAttribute("groupAccount", groupAccount);
             request.setAttribute("searchPhase", phase);
             request.setAttribute("searchKw", kw);
             request.setAttribute("searchSpeed", speed);

@@ -109,7 +109,7 @@
                             hidden=""
                         </c:if>
                     ><a href="insert">Insert</a></td>
-                <td>BuyQuantity</td>
+                <td>Quantity Purchased</td>
                 
             </tr>
             </thead>

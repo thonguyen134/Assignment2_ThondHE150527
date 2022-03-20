@@ -39,6 +39,7 @@ public class AddOrderController extends BaseAuthController {
         String raw_id = request.getParameter("id");
         String raw_quantity = request.getParameter("quantity");
         CheckValidate check = new CheckValidate();
+        //check validate
         if (check.checkInteger(raw_id) && check.checkInteger(raw_quantity)) {
             int id = Integer.parseInt(raw_id);
             Product product = db.getProduct(id);
@@ -71,7 +72,7 @@ public class AddOrderController extends BaseAuthController {
                     }
                 }
                 if (checkQuantity == true) {
-                    response.getWriter().println("not oke");
+                    response.getWriter().println("The quantity purchased is larger than the quantity in stock");
                 } else {
                     if (isExist == false) {
                         OrderDetail detail = new OrderDetail();
